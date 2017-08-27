@@ -1,0 +1,108 @@
+<div class="row main">
+    <div class="main-login main-center">
+
+        <form class="" [formGroup]="signUpForm" (ngSubmit)="SignUpUser()">
+
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true">First Name</i></span>
+                        <input type="text" class="form-control" formControlName="FirstName" name="FirstName" id="FirstName" placeholder="Enter your First Name"
+                        />
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && (signUpForm.get('FirstName')?.touched || mouseoverLogin) && signUpForm.controls.FirstName.errors.required">Required</em>
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName').errors.pattern">Wrong Pattern for the name</em>
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName').errors.maxlength">Max length for the name should be 20</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Last Name</i></span>
+                        <input type="text" class="form-control" formControlName="LastName" name="LastName" id="LastName" placeholder="Enter your Last Name"
+                        />
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && (signUpForm.get('LastName')?.touched || mouseoverLogin) && signUpForm.controls.LastName.errors.required">Required</em>
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName').errors.pattern">Wrong Pattern for the Last name</em>
+                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName').errors.maxlength">Max length for the last name should be 20</em>
+                    </div>
+                </div>
+            </div>
+            <div formGroupName="EmailGroup">
+                <div class="form-group">
+                    <div class="cols-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Email</i></span>
+                            <input type="text" class="form-control" formControlName="Email" placeholder="Enter Email" />
+                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup.Email')?.invalid && 
+                                                                 (signUpForm.get('EmailGroup.Email')?.touched || mouseoverLogin) && 
+                                                                 signUpForm.controls.EmailGroup.controls.Email.errors.required">Required</em>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="cols-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Cofirm Email</i></span>
+                            <input type="text" class="form-control" formControlName="ConfirmEmail" placeholder="Cofirm Email" />
+                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup.ConfirmEmail')?.invalid && 
+                                                                 (signUpForm.get('EmailGroup.ConfirmEmail')?.touched || mouseoverLogin) && 
+                                                                 signUpForm.controls.EmailGroup.controls.ConfirmEmail.errors.required">Required</em>
+                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup').errors?.match">Emails Not Matching</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Contact No</i></span>
+                        <input type="text" class="form-control" formControlName="ContactNo" placeholder="Enter Contact No" />
+                        <span *ngIf="signUpForm.controls.ContactNo.errors">
+                                <em class="alert alert-danger" *ngIf="signUpForm.get('ContactNo')?.invalid && (signUpForm.get('ContactNo')?.touched || mouseoverLogin) && signUpForm.controls.ContactNo.errors.required">Required</em>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <span>Send Notifications</span>
+                    <span>
+                    <input type="radio" formControlName="SendNotificaton" value="email" (click)="CheckNotificationType('email')" /><span>Email</span>
+                    <input type="radio" formControlName="SendNotificaton" value="mobile" (click)="CheckNotificationType('mobile')" /><span>Mobile</span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Send Catalog</i></span>
+                        <input type="checkbox" formControlName="SendCatalog" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="cols-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Rating</i></span>
+                        <input type="number" class="form-control" formControlName="Rating" placeholder="Enter Rating" />
+                        <span *ngIf="signUpForm.controls.Rating.errors">
+                            <em class="alert alert-danger" *ngIf="signUpForm.get('Rating')?.invalid && signUpForm.controls.Rating.errors.range">Please rate between 1 and 5</em>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ">
+                <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
+                    <button type="submit" class="btn btn-primary btn-lg login-button" [disabled]="signUpForm.invalid" >Log in</button>
+                </span>
+                <button type="button" class="btn btn-primary btn-lg login-button" (click)="cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary btn-lg login-button" (click)="SetTestData()">Test Data</button>
+            </div>
+
+        </form>
+    </div>
+</div>

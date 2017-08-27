@@ -1,0 +1,14 @@
+﻿<div class="panel">
+    <div class="panel-heading">{{pageTitle}}</div>
+    <div class="row">
+        <div class="col-md-2">{{book.PublishYear}}</div>
+        <div class="col-md-2">{{book.Edition}}</div>        
+        <div class="col-md-2">{{book.ISBNNumber}}</div>        
+    </div>
+    
+    <div class="row" *ngFor="let city of Cities">
+        <div class="col-md-2">
+            <div class="alert alert-success">{{city}}</div>
+        </div>
+    </div>
+</div>

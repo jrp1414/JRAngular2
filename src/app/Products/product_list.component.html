@@ -1,0 +1,40 @@
+﻿<div class="panel">
+    <div class="panel-heading">{{pageTitle}}</div>
+    <div>
+        <button (click)="toggleImage()" class="btn btn-primary">{{showImage?"Hide":"Show" }} Images</button>
+    </div>
+    <div class="row">
+        <div class="col-md-2">Enter Filter Text</div>
+        <div class="col-md-2"><input type="text" class="form-control" [(ngModel)]="filterBy" /></div>
+        <div class="col-md-8" *ngIf="filterBy"><span class="alert alert-info">{{filterBy}}</span></div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover" *ngIf="products && products.length">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Product Id</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    <th>Rating</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr [routerLink]="['/products',product.Id]" *ngFor="let product of products | ProductFilter : filterBy">
+                    <td>{{product.Name}}</td>
+                    <td>{{product.ProductId}}</td>
+                    <td>{{product.Price | currency:'USD':false:'3.2-2'}}</td>
+                    <td>{{product.Discount}}</td>
+                    <!-- <td>{{product.GetDiscountedPrice(product.Price,product.Discount) | currency:'USD':true:'3.2-2'}}</td> -->
+                    <td><ap-star [rating]="product.Rating" (ratingClicked)="OnRatingClicked($event)"></ap-star></td>
+                    <!-- <td *ngIf="showImage">
+                        <img [src]="product.ImageUrl"
+                             [style.width.px]="imageWidth"
+                             [style.height.px]="imageHeight" />
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info" *ngIf="!products && !products.length">No Products Found</div>
+    </div>
+</div>

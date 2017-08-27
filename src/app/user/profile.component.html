@@ -1,0 +1,38 @@
+<div class="row main">
+    <div class="main-login main-center">
+
+        <form class="" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+
+            <div class="form-group">
+                <div class="cols-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true">First Name</i></span>
+                        <input type="text" class="form-control" formControlName="FirstName" name="FirstName" id="FirstName" placeholder="Enter your First Name" />
+                        <em class="alert alert-danger" *ngIf="profileForm.get('FirstName')?.invalid && (profileForm.get('FirstName')?.touched || mouseoverLogin) && profileForm.controls.FirstName.errors.required">Required</em>
+                        <em class="alert alert-danger" *ngIf="profileForm.get('FirstName')?.invalid && profileForm.get('FirstName').errors.pattern">Wrong Pattern for the name</em>
+                        <em class="alert alert-danger" *ngIf="profileForm.get('FirstName')?.invalid && profileForm.get('FirstName').errors.maxlength">Max length for the name should be 20</em>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="form-group">
+                <div class="cols-sm-8">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Last Name</i></span>
+                        <input type="text" class="form-control" formControlName="LastName" name="LastName" id="LastName" placeholder="Enter your Last Name" />
+                        <em class="alert alert-danger" *ngIf="profileForm.controls.LastName?.invalid && (profileForm.controls.LastName?.touched || mouseoverLogin)">Required</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
+                    <button type="submit" class="btn btn-primary btn-lg login-button" [disabled]="profileForm.invalid" >Log in</button>
+                </span>
+                <button type="button" class="btn btn-primary btn-lg login-button" (click)="cancel()">Cancel</button>
+                <button type="button" class="btn btn-primary btn-lg login-button" (click)="SetTestData()">Test Data</button>
+            </div>
+
+        </form>
+    </div>
+</div>
