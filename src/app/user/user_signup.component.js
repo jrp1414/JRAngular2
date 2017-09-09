@@ -12,6 +12,7 @@ var core_1 = require("@angular/core");
 var auth_service_1 = require("./auth.service");
 var forms_1 = require("@angular/forms");
 var router_1 = require("@angular/router");
+require("rxjs/add/operator/debounceTime");
 function RangeValidator(param1, param2) {
     return function (c) {
         if (c.value !== undefined && (isNaN(c.value) || c.value < param1 || c.value > param2)) {
@@ -47,13 +48,16 @@ var UserSignUpComponent = (function () {
             FirstName: ['', [forms_1.Validators.maxLength(20), forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z].*')]],
             LastName: ['', [forms_1.Validators.maxLength(20), forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z].*')]],
             EmailGroup: this.fb.group({
-                Email: ['', forms_1.Validators.required],
-                ConfirmEmail: ['', forms_1.Validators.required],
+                Email: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+                ConfirmEmail: ['', [forms_1.Validators.required, forms_1.Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
             }, { validator: EmailMatch }),
             ContactNo: '',
             Rating: ['', RangeValidator(1, 5)],
             SendNotificaton: 'email',
-            SendCatalog: true
+            SendCatalog: true,
+            addresses: this.fb.array([
+                this.buildAddress()
+            ])
         });
         this.signUpForm.get("SendNotificaton").valueChanges.subscribe(function (value) {
             return _this.CheckNotificationType(value);
@@ -63,10 +67,28 @@ var UserSignUpComponent = (function () {
         var EmailControl = this.signUpForm.get("EmailGroup.Email");
         var ConfirmEmailControl = this.signUpForm.get("EmailGroup.ConfirmEmail");
         this.signUpForm.get("SendNotificaton").valueChanges.subscribe(function (value) { return _this.CheckNotificationType(value); });
-        firstNameControl.valueChanges.subscribe(function (value) { return _this.GetFirstNameMessage(firstNameControl); });
-        lastNameControl.valueChanges.subscribe(function (value) { return _this.GetLastNameMessage(lastNameControl); });
-        EmailControl.valueChanges.subscribe(function (value) { return _this.GetEmailMessage(EmailControl, "Email"); });
-        ConfirmEmailControl.valueChanges.subscribe(function (value) { return _this.GetEmailMessage(ConfirmEmailControl, "ConfirmEmail"); });
+        firstNameControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.GetFirstNameMessage(firstNameControl); });
+        lastNameControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.GetLastNameMessage(lastNameControl); });
+        EmailControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.GetEmailMessage(EmailControl, "Email"); });
+        ConfirmEmailControl.valueChanges.debounceTime(1000).subscribe(function (value) { return _this.GetEmailMessage(ConfirmEmailControl, "ConfirmEmail"); });
+    };
+    UserSignUpComponent.prototype.buildAddress = function () {
+        return this.fb.group({
+            address1: "",
+            address2: "",
+            address3: "",
+            city: ""
+        });
+    };
+    Object.defineProperty(UserSignUpComponent.prototype, "addresses", {
+        get: function () {
+            return this.signUpForm.get("addresses");
+        },
+        enumerable: true,
+        configurable: true
+    });
+    UserSignUpComponent.prototype.addAddress = function () {
+        this.addresses.push(this.buildAddress());
     };
     UserSignUpComponent.prototype.CheckNotificationType = function (notifyVia) {
         var mobile = this.signUpForm.get('ContactNo');

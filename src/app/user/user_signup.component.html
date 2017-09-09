@@ -86,6 +86,54 @@
                     </div>
                 </div>
             </div>
+
+            <div *ngIf="signUpForm.get('SendCatalog').value">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" (click)="addAddress()">Add another Address</button>
+                    </div>
+                </div>
+                <div class="row" formArrayName="addresses" *ngFor="let address of addresses.controls;let i=index">
+                    <div class="well" [formGroupName]="i" >
+                        <div class="form-group">
+                            <div class="cols-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Address 1</i></span>
+                                    <input type="text" class="form-control" formControlName="address1" placeholder="Enter Address Line 1" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="cols-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Address 2</i></span>
+                                    <input type="text" class="form-control" formControlName="address2" placeholder="Enter Address Line 2" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="cols-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Address 3</i></span>
+                                    <input type="text" class="form-control" formControlName="address3" placeholder="Enter Address Line 3" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="cols-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">City</i></span>
+                                    <input type="text" class="form-control" formControlName="city" placeholder="Enter City" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+
             <div class="form-group ">
                 <span (mouseenter)="mouseoverLogin=true" (mouseleave)="mouseoverLogin=false">
                     <button type="submit" class="btn btn-primary btn-lg login-button" [disabled]="signUpForm.invalid" >Log in</button>

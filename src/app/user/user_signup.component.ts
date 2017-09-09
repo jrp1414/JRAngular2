@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
-import { FormGroup, Validators, FormBuilder, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, AbstractControl, ValidatorFn, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
+import "rxjs/add/operator/debounceTime";
 
 function RangeValidator(param1: number, param2: number): ValidatorFn {
     return (c: AbstractControl): { [key: string]: boolean } | null => {
@@ -41,13 +42,16 @@ export class UserSignUpComponent implements OnInit {
             FirstName: ['', [Validators.maxLength(20), Validators.required, Validators.pattern('[a-zA-Z].*')]],
             LastName: ['', [Validators.maxLength(20), Validators.required, Validators.pattern('[a-zA-Z].*')]],
             EmailGroup: this.fb.group({
-                Email: ['', Validators.required],
-                ConfirmEmail: ['', Validators.required],
+                Email: ['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
+                ConfirmEmail: ['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
             }, { validator: EmailMatch }),
             ContactNo: '',
             Rating: ['', RangeValidator(1, 5)],
             SendNotificaton: 'email',
-            SendCatalog: true
+            SendCatalog: true,
+            addresses:this.fb.array([
+                this.buildAddress()       
+            ])
         });
 
         this.signUpForm.get("SendNotificaton").valueChanges.subscribe(value =>
@@ -57,11 +61,28 @@ export class UserSignUpComponent implements OnInit {
         const EmailControl = this.signUpForm.get("EmailGroup.Email");
         const ConfirmEmailControl = this.signUpForm.get("EmailGroup.ConfirmEmail");
         this.signUpForm.get("SendNotificaton").valueChanges.subscribe(value => this.CheckNotificationType(value));
-        firstNameControl.valueChanges.subscribe(value => this.GetFirstNameMessage(firstNameControl));
-        lastNameControl.valueChanges.subscribe(value => this.GetLastNameMessage(lastNameControl));
-        EmailControl.valueChanges.subscribe(value => this.GetEmailMessage(EmailControl,"Email"));
-        ConfirmEmailControl.valueChanges.subscribe(value => this.GetEmailMessage(ConfirmEmailControl,"ConfirmEmail"));
+        firstNameControl.valueChanges.debounceTime(1000).subscribe(value => this.GetFirstNameMessage(firstNameControl));
+        lastNameControl.valueChanges.debounceTime(1000).subscribe(value => this.GetLastNameMessage(lastNameControl));
+        EmailControl.valueChanges.debounceTime(1000).subscribe(value => this.GetEmailMessage(EmailControl,"Email"));
+        ConfirmEmailControl.valueChanges.debounceTime(1000).subscribe(value => this.GetEmailMessage(ConfirmEmailControl,"ConfirmEmail"));
     }
+
+    buildAddress():FormGroup{
+        return this.fb.group({
+            address1:"",
+            address2:"",
+            address3:"",
+            city:""
+        });
+    }
+
+    get addresses(): FormArray{
+        return <FormArray>this.signUpForm.get("addresses");
+    }
+    addAddress():void{
+        this.addresses.push(this.buildAddress());
+    }
+
     signUpForm: FormGroup;
 
     CheckNotificationType(notifyVia: string): void {
