@@ -35,8 +35,14 @@ var UserSignUpComponent = (function () {
         this.auth = auth;
         this.router = router;
         this.fb = fb;
+        this.ErrorMessages = {
+            required: "Required",
+            pattern: "Invalid Pattern",
+            match: "Both Emails Not Matching"
+        };
     }
     UserSignUpComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.signUpForm = this.fb.group({
             FirstName: ['', [forms_1.Validators.maxLength(20), forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z].*')]],
             LastName: ['', [forms_1.Validators.maxLength(20), forms_1.Validators.required, forms_1.Validators.pattern('[a-zA-Z].*')]],
@@ -49,6 +55,18 @@ var UserSignUpComponent = (function () {
             SendNotificaton: 'email',
             SendCatalog: true
         });
+        this.signUpForm.get("SendNotificaton").valueChanges.subscribe(function (value) {
+            return _this.CheckNotificationType(value);
+        });
+        var firstNameControl = this.signUpForm.get("FirstName");
+        var lastNameControl = this.signUpForm.get("LastName");
+        var EmailControl = this.signUpForm.get("EmailGroup.Email");
+        var ConfirmEmailControl = this.signUpForm.get("EmailGroup.ConfirmEmail");
+        this.signUpForm.get("SendNotificaton").valueChanges.subscribe(function (value) { return _this.CheckNotificationType(value); });
+        firstNameControl.valueChanges.subscribe(function (value) { return _this.GetFirstNameMessage(firstNameControl); });
+        lastNameControl.valueChanges.subscribe(function (value) { return _this.GetLastNameMessage(lastNameControl); });
+        EmailControl.valueChanges.subscribe(function (value) { return _this.GetEmailMessage(EmailControl, "Email"); });
+        ConfirmEmailControl.valueChanges.subscribe(function (value) { return _this.GetEmailMessage(ConfirmEmailControl, "ConfirmEmail"); });
     };
     UserSignUpComponent.prototype.CheckNotificationType = function (notifyVia) {
         var mobile = this.signUpForm.get('ContactNo');
@@ -62,6 +80,41 @@ var UserSignUpComponent = (function () {
     };
     UserSignUpComponent.prototype.SignUpUser = function () {
         console.log(this.signUpForm.value);
+    };
+    UserSignUpComponent.prototype.GetFirstNameMessage = function (c) {
+        var _this = this;
+        this.FirstNameMessage = "";
+        if ((c.dirty || c.touched) && c.errors) {
+            this.FirstNameMessage = Object.keys(c.errors).map(function (key) {
+                return _this.ErrorMessages[key];
+            }).join(",");
+        }
+    };
+    UserSignUpComponent.prototype.GetLastNameMessage = function (c) {
+        var _this = this;
+        this.LastNameMessage = "";
+        if ((c.dirty || c.touched) && c.errors) {
+            this.LastNameMessage = Object.keys(c.errors).map(function (key) {
+                return _this.ErrorMessages[key];
+            }).join(",");
+        }
+    };
+    UserSignUpComponent.prototype.GetEmailMessage = function (c, type) {
+        var _this = this;
+        if ((c.dirty || c.touched) && c.errors) {
+            if (type === "Email") {
+                this.EmailMessage = "";
+                this.EmailMessage = Object.keys(c.errors).map(function (key) {
+                    return _this.ErrorMessages[key];
+                }).join(",");
+            }
+            else if (type === "ConfirmEmail") {
+                this.ConfirmEmailMessage = "";
+                this.ConfirmEmailMessage = Object.keys(c.errors).map(function (key) {
+                    return _this.ErrorMessages[key];
+                }).join(",");
+            }
+        }
     };
     return UserSignUpComponent;
 }());

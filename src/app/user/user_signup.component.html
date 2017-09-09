@@ -9,9 +9,7 @@
                         <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true">First Name</i></span>
                         <input type="text" class="form-control" formControlName="FirstName" name="FirstName" id="FirstName" placeholder="Enter your First Name"
                         />
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && (signUpForm.get('FirstName')?.touched || mouseoverLogin) && signUpForm.controls.FirstName.errors.required">Required</em>
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName').errors.pattern">Wrong Pattern for the name</em>
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('FirstName')?.invalid && signUpForm.get('FirstName').errors.maxlength">Max length for the name should be 20</em>
+                        <em class="alert alert-danger" *ngIf="FirstNameMessage">{{FirstNameMessage}}</em>
                     </div>
                 </div>
             </div>
@@ -22,9 +20,7 @@
                         <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Last Name</i></span>
                         <input type="text" class="form-control" formControlName="LastName" name="LastName" id="LastName" placeholder="Enter your Last Name"
                         />
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && (signUpForm.get('LastName')?.touched || mouseoverLogin) && signUpForm.controls.LastName.errors.required">Required</em>
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName').errors.pattern">Wrong Pattern for the Last name</em>
-                        <em class="alert alert-danger" *ngIf="signUpForm.get('LastName')?.invalid && signUpForm.get('LastName').errors.maxlength">Max length for the last name should be 20</em>
+                        <em class="alert alert-danger" *ngIf="LastNameMessage">{{LastNameMessage}}</em>
                     </div>
                 </div>
             </div>
@@ -34,9 +30,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Email</i></span>
                             <input type="text" class="form-control" formControlName="Email" placeholder="Enter Email" />
-                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup.Email')?.invalid && 
-                                                                 (signUpForm.get('EmailGroup.Email')?.touched || mouseoverLogin) && 
-                                                                 signUpForm.controls.EmailGroup.controls.Email.errors.required">Required</em>
+                            <em class="alert alert-danger" *ngIf="EmailMessage">{{EmailMessage}}</em>
                         </div>
                     </div>
                 </div>
@@ -45,10 +39,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true">Cofirm Email</i></span>
                             <input type="text" class="form-control" formControlName="ConfirmEmail" placeholder="Cofirm Email" />
-                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup.ConfirmEmail')?.invalid && 
-                                                                 (signUpForm.get('EmailGroup.ConfirmEmail')?.touched || mouseoverLogin) && 
-                                                                 signUpForm.controls.EmailGroup.controls.ConfirmEmail.errors.required">Required</em>
-                            <em class="alert alert-danger" *ngIf="signUpForm.get('EmailGroup').errors?.match">Emails Not Matching</em>
+                            <em class="alert alert-danger" *ngIf="ConfirmEmailMessage">{{ConfirmEmailMessage}}</em>
                         </div>
                     </div>
                 </div>
@@ -71,8 +62,8 @@
                 <div class="cols-sm-6">
                     <span>Send Notifications</span>
                     <span>
-                    <input type="radio" formControlName="SendNotificaton" value="email" (click)="CheckNotificationType('email')" /><span>Email</span>
-                    <input type="radio" formControlName="SendNotificaton" value="mobile" (click)="CheckNotificationType('mobile')" /><span>Mobile</span>
+                    <input type="radio" formControlName="SendNotificaton" value="email" /><span>Email</span>
+                    <input type="radio" formControlName="SendNotificaton" value="mobile" /><span>Mobile</span>
                     </span>
                 </div>
             </div>
