@@ -1,4 +1,6 @@
 import { RouterModule, ActivatedRouteSnapshot } from "@angular/router";
+import {HttpModule} from "@angular/http"
+import {InMemoryWebApiModule} from "angular-in-memory-web-api"
 import { AppComponent } from "./app.component"
 import { WelcomeComponent } from "./Dashboard/welcome.component"
 import {
@@ -16,9 +18,10 @@ import { BrowserModule } from "@angular/platform-browser"
 import { FormsModule } from "@angular/forms"
 import { appRoutes } from "./Routes";
 import { AuthService } from "./user/auth.service";
+import { ProductDB } from "./Products/ProductDB";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
+    imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes),HttpModule,InMemoryWebApiModule.forRoot(ProductDB)],
     declarations: [AppComponent,
         WelcomeComponent,
         ProductListComponent,

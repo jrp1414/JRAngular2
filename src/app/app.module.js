@@ -6,6 +6,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var router_1 = require("@angular/router");
+var http_1 = require("@angular/http");
+var angular_in_memory_web_api_1 = require("angular-in-memory-web-api");
 var app_component_1 = require("./app.component");
 var welcome_component_1 = require("./Dashboard/welcome.component");
 var Index_1 = require("./Index");
@@ -13,6 +15,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var Routes_1 = require("./Routes");
 var auth_service_1 = require("./user/auth.service");
+var ProductDB_1 = require("./Products/ProductDB");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,7 +23,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     Index_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(Routes_1.appRoutes)],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(Routes_1.appRoutes), http_1.HttpModule, angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(ProductDB_1.ProductDB)],
         declarations: [app_component_1.AppComponent,
             welcome_component_1.WelcomeComponent,
             Index_1.ProductListComponent,

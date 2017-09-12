@@ -1,79 +1,44 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
 var ProductService = (function () {
-    function ProductService() {
+    function ProductService(http) {
+        this.http = http;
     }
     ProductService.prototype.getProducts = function () {
-        return exports.Products;
+        var baseUrl = "api/products";
+        return this.http.get(baseUrl).map(function (response) {
+            return response.json().data;
+        }).catch(function (error) { return error.json(); });
     };
     ProductService.prototype.getProduct = function (Id) {
-        return exports.Products.find(function (p) { return p.Id == Id; });
+        return {
+            id: 1,
+            Name: "Chair",
+            ProductId: "GDN-001",
+            Price: 252.25,
+            Discount: 10.25,
+            Details: { Description: "Test", Catagory: "HouseHold" },
+            Rating: 5
+        };
     };
     return ProductService;
 }());
+ProductService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], ProductService);
 exports.ProductService = ProductService;
-exports.Products = [
-    {
-        Id: 1,
-        Name: "Chair",
-        ProductId: "GDN-001",
-        Price: 252.25,
-        Discount: 10.25,
-        Details: { Description: "Test", Catagory: "HouseHold" },
-        Rating: 5
-    },
-    {
-        Id: 2,
-        Name: "Bed",
-        ProductId: "GDN-002",
-        Price: 3252.25,
-        Discount: 10.25,
-        Details: { Description: "Bed", Catagory: "HouseHold" },
-        Rating: 4
-    },
-    {
-        Id: 3,
-        Name: "Table",
-        ProductId: "GDN-003",
-        Price: 1252.25,
-        Discount: 10.25,
-        Details: { Description: "Table", Catagory: "HouseHold" },
-        Rating: 5
-    },
-    {
-        Id: 4,
-        Name: "TV Stand",
-        ProductId: "GDN-004",
-        Price: 2452.25,
-        Discount: 10.25,
-        Details: { Description: "TV Stand", Catagory: "HouseHold" },
-        Rating: 5
-    },
-    {
-        Id: 5,
-        Name: "Sofa",
-        ProductId: "GDN-005",
-        Price: 10552.25,
-        Discount: 10.25,
-        Details: { Description: "Sofa", Catagory: "HouseHold" },
-        Rating: 5
-    },
-    {
-        Id: 6,
-        Name: "Cup Board",
-        ProductId: "GDN-006",
-        Price: 4552.25,
-        Discount: 10.25,
-        Details: { Description: "Cup board", Catagory: "HouseHold" },
-        Rating: 5
-    },
-    {
-        Id: 7,
-        Name: "Fridge",
-        ProductId: "GDN-007",
-        Price: 5752.25,
-        Discount: 10.25,
-        Details: { Description: "Fridge", Catagory: "Kitchen Appliances" },
-        Rating: 5
-    }
-];
 //# sourceMappingURL=productService.js.map

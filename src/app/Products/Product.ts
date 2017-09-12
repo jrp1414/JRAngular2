@@ -1,5 +1,5 @@
 ﻿export interface IProduct{
-    Id:number;
+    id:number;
     Name: string;
     ProductId: string;
     Price: number;
@@ -25,7 +25,7 @@ export class Product implements IProduct {
         this.Rating = Rating;
         this.ImageUrl = ImageUrl;
     }
-    Id:number;
+    id:number;
     Name: string;
     ProductId: string;
     Price: number;

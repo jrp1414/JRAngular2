@@ -20,7 +20,8 @@ var ProductListComponent = (function () {
         this.filterBy = "";
     }
     ProductListComponent.prototype.ngOnInit = function () {
-        this.products = this.productService.getProducts();
+        var _this = this;
+        this.productService.getProducts().subscribe(function (data) { return _this.products = data; }, function (error) { return console.log(error); });
     };
     ProductListComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;
@@ -39,10 +40,4 @@ ProductListComponent = __decorate([
     __metadata("design:paramtypes", [productService_1.ProductService])
 ], ProductListComponent);
 exports.ProductListComponent = ProductListComponent;
-// products: Product[] = [
-//     new Product("Mouse", "GDN-001", 253652.02, "http://viralinfocom.com/wp-content/uploads/2016/08/944242-mouse.jpg", 10.5,4),
-//     new Product("Keyboard", "GDN-002", 4256.02, "https://codekeyboards.com/galleria/9.jpg", 5.75,2.5),
-//     new Product("Monitor", "GDN-003", 222.02,"https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5029/5029800_sd.jpg;maxHeight=550;maxWidth=642",18.25,4.5),
-//     new Product("Printer", "GDN-004", 7585.02,"http://store.hp.com/wcsstore/hpusstore/Treatment/dsnew-printers-drawer-1-3.jpg",12.75,3.5)
-// ]; 
 //# sourceMappingURL=product_list.component.js.map
