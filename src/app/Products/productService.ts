@@ -11,21 +11,19 @@ export class ProductService {
     constructor(private http:Http){
 
     }
+    baseUrl:string = "http://localhost/MVCPract/";
     getProducts(): Observable<IProduct[]> {
-        let baseUrl = "api/products";
-        return this.http.get(baseUrl).map((response:Response)=>{
-            return <IProduct[]>response.json().data;
+        return this.http.get(this.baseUrl+"GetProducts").map((response:Response)=>{
+          let data = <IProduct[]>response.json();
+          console.log(data);
+          return data;
         }).catch(error=>error.json());
     }
-    getProduct(Id:number): IProduct {
-        return {
-            id: 1,
-            Name: "Chair",
-            ProductId: "GDN-001",
-            Price: 252.25,
-            Discount: 10.25,
-            Details: { Description: "Test", Catagory: "HouseHold" },
-            Rating: 5
-        };
+    getProduct(Id:number): Observable<IProduct> {
+        return this.http.get(this.baseUrl+"GetProduct/"+Id).map((response:Response)=>{
+            let data = <IProduct>response.json();
+            console.log(data);
+            return data;
+          }).catch(error=>error.json());
     }
 }

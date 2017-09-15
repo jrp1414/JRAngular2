@@ -18,15 +18,17 @@ var ProductDetailsComponent = (function () {
         // constructor(private productService: ProductService,private route:ActivatedRouteSnapshot) {
     }
     ProductDetailsComponent.prototype.ngOnInit = function () {
-        this.product = this.productService.getProduct(+this.route.snapshot.params["id"]);
+        var _this = this;
+        this.productService.getProduct(+this.route.snapshot.params["id"]).subscribe(function (data) { return _this.product = data; }, function (error) { return console.log(error); });
         // this.product = this.productService.getProduct(+this.route.params["id"]);
     };
     ProductDetailsComponent.prototype.getPriceClass = function () {
-        if (this.product.Price > 4000) {
+        if (this.product && this.product.Price > 4000) {
             // return {red:"red",bold:"bold"};
             // return "red bold";
             return ["red", "bold"];
         }
+        return [];
     };
     return ProductDetailsComponent;
 }());

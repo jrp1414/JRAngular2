@@ -16,23 +16,21 @@ require("rxjs/add/operator/catch");
 var ProductService = (function () {
     function ProductService(http) {
         this.http = http;
+        this.baseUrl = "http://localhost/MVCPract/";
     }
     ProductService.prototype.getProducts = function () {
-        var baseUrl = "api/products";
-        return this.http.get(baseUrl).map(function (response) {
-            return response.json().data;
+        return this.http.get(this.baseUrl + "GetProducts").map(function (response) {
+            var data = response.json();
+            console.log(data);
+            return data;
         }).catch(function (error) { return error.json(); });
     };
     ProductService.prototype.getProduct = function (Id) {
-        return {
-            id: 1,
-            Name: "Chair",
-            ProductId: "GDN-001",
-            Price: 252.25,
-            Discount: 10.25,
-            Details: { Description: "Test", Catagory: "HouseHold" },
-            Rating: 5
-        };
+        return this.http.get(this.baseUrl + "GetProduct/" + Id).map(function (response) {
+            var data = response.json();
+            console.log(data);
+            return data;
+        }).catch(function (error) { return error.json(); });
     };
     return ProductService;
 }());

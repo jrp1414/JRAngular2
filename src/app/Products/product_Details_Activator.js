@@ -17,11 +17,13 @@ var ProductDetailsActivator = (function () {
         this.productService = productService;
     }
     ProductDetailsActivator.prototype.canActivate = function (route) {
-        var productExists = !!this.productService.getProduct(+route.params["id"]);
-        if (!productExists) {
-            this.router.navigate(["/404"]);
+        var _this = this;
+        this.productService.getProduct(+route.params["id"]).subscribe(function (data) { return _this.product = data; }, function (error) { return console.log(error); });
+        ;
+        if (!!(this.product)) {
+            return !!(this.product);
         }
-        return productExists;
+        this.router.navigate(["/404"]);
     };
     return ProductDetailsActivator;
 }());

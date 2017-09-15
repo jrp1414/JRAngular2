@@ -17,15 +17,16 @@ export class ProductDetailsComponent implements OnInit {
         // constructor(private productService: ProductService,private route:ActivatedRouteSnapshot) {
     }
     ngOnInit(): void {
-        this.product = this.productService.getProduct(+this.route.snapshot.params["id"]);
+        this.productService.getProduct(+this.route.snapshot.params["id"]).subscribe(data=>this.product = data,error=>console.log(error));
         // this.product = this.productService.getProduct(+this.route.params["id"]);
     }
     product: IProduct;
     getPriceClass():any{
-        if(this.product.Price>4000){
+        if(this.product && this.product.Price>4000){
             // return {red:"red",bold:"bold"};
             // return "red bold";
             return ["red","bold"];
         }
+        return [];
     }
 }
