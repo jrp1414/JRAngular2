@@ -14,6 +14,7 @@ var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var Routes_1 = require("./Routes");
 var auth_service_1 = require("./user/auth.service");
+var Index_2 = require("./shared/Index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,7 +33,8 @@ AppModule = __decorate([
             Index_1.ProductDetailsComponent,
             Index_1.Error404Component,
             Index_1.CreateProductComponent,
-            Index_1.ProductEditComponent
+            Index_1.ProductEditComponent,
+            Index_2.CollapsableComponent
         ],
         providers: [
             Index_1.ProductService,

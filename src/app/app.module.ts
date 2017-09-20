@@ -19,7 +19,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { appRoutes } from "./Routes";
 import { AuthService } from "./user/auth.service";
 import { ProductDB } from "./Products/ProductDB";
-
+import {
+    CollapsableComponent
+} from "./shared/Index"
 @NgModule({
     imports: [BrowserModule, FormsModule,ReactiveFormsModule, RouterModule.forRoot(appRoutes), HttpModule],
     declarations: [
@@ -32,7 +34,8 @@ import { ProductDB } from "./Products/ProductDB";
         ProductDetailsComponent,
         Error404Component,
         CreateProductComponent,
-        ProductEditComponent
+        ProductEditComponent,
+        CollapsableComponent
     ],
     providers: [
         ProductService,

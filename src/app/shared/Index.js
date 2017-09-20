@@ -4,4 +4,5 @@ function __export(m) {
 }
 __export(require("./error.component"));
 __export(require("./star.component"));
+__export(require("./collapsable.component"));
 //# sourceMappingURL=Index.js.map

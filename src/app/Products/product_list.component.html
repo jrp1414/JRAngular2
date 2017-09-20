@@ -9,33 +9,35 @@
         <div class="col-md-8" *ngIf="filterBy"><span class="alert alert-info">{{filterBy}}</span></div>
     </div>
     <div class="panel-body">
-        <table class="table table-hover" *ngIf="products && products.length">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Product Id</th>
-                    <th>Price</th>
-                    <th>Discount</th>
-                    <th>Rating</th>                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr [routerLink]="['/products',product.id]" *ngFor="let product of products | ProductFilter : filterBy">
-                    <td>{{product.Name}}</td>
-                    <td>{{product.ProductId}}</td>
-                    <td>{{product.Price | currency:'USD':false:'3.2-2'}}</td>
-                    <td>{{product.Discount}}</td>
-                    <!-- <td>{{product.GetDiscountedPrice(product.Price,product.Discount) | currency:'USD':true:'3.2-2'}}</td> -->
-                    <td><ap-star [rating]="product.Rating" (ratingClicked)="OnRatingClicked($event)"></ap-star></td>
-                    <!-- <td *ngIf="showImage">
-                        <img [src]="product.ImageUrl"
-                             [style.width.px]="imageWidth"
-                             [style.height.px]="imageHeight" />
-                    </td> -->
-                    <td><a [routerLink]="['/editProduct',product.id]" class="btn btn-primary" >Edit</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-4" *ngFor="let product of products">
+                <collapsable-well [title]="product.Name">
+                    <div class="row">
+                        <div class="col-md-4">Product Code</div>
+                        <div class="col-md-4">{{product?.ProductCode}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">Price</div>
+                        <div class="col-md-4">
+                            <span>{{product?.Price}}</span>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">Discount</div>
+                        <div class="col-md-4">{{product?.Discount}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">Offer</div>
+                        <div [ngSwitch]="product?.Details?.Category" class="col-md-4">
+                            <span *ngSwitchCase="'Furniture'">You have additonal 5% Discount in Axis Bank Card</span>
+                            <span *ngSwitchCase="'Computer'">You have additonal 10% Discount in Axis Bank Card</span>
+                            <span *ngSwitchDefault>You have no additonal Discount in this Category</span>
+                        </div>
+                    </div>
+                </collapsable-well>                
+            </div>
+
+        </div>
         <!-- <div class="alert alert-info" *ngIf="!products && !products.length">No Products Found</div> -->
     </div>
 </div>
