@@ -21,7 +21,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     Index_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, router_1.RouterModule.forRoot(Routes_1.appRoutes), http_1.HttpModule],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, router_1.RouterModule.forRoot(Routes_1.appRoutes), http_1.HttpModule],
         declarations: [
             app_component_1.AppComponent,
             welcome_component_1.WelcomeComponent,
@@ -31,7 +31,8 @@ AppModule = __decorate([
             Index_1.ProductFilterPipe,
             Index_1.ProductDetailsComponent,
             Index_1.Error404Component,
-            Index_1.CreateProductComponent
+            Index_1.CreateProductComponent,
+            Index_1.ProductEditComponent
         ],
         providers: [
             Index_1.ProductService,

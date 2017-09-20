@@ -6,7 +6,10 @@
     // ImageUrl: string;
     Discount: number;    
     Rating:number;
-    Details:{};
+    Details:{
+        Description:string,
+        Catagory:string
+    };
     //GetDiscountedPrice(Price: number, Discount: number): number;
 }
 
@@ -16,7 +19,6 @@
 
 
 export class Product implements IProduct {
-    Details: {};
     constructor(Name: string, ProductId: string, Price: number, ImageUrl: string, Discount: number, Rating: number) {
         this.Name = Name;
         this.ProductId = ProductId;
@@ -35,6 +37,10 @@ export class Product implements IProduct {
     GetDiscountedPrice(Price: number, Discount: number): number {
         return  Price - ((Price * Discount) / 100);
     }
+    Details:{
+        Description:string,
+        Catagory:string
+    };
 
 
 }

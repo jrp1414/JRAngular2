@@ -12,16 +12,16 @@ import {
     ProductListComponent,
     Error404Component,
     StarComponent,
-    BookComponent, NgModule
+    BookComponent, NgModule, ProductEditComponent
 } from "./Index"
 import { BrowserModule } from "@angular/platform-browser"
-import { FormsModule } from "@angular/forms"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { appRoutes } from "./Routes";
 import { AuthService } from "./user/auth.service";
 import { ProductDB } from "./Products/ProductDB";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes), HttpModule],
+    imports: [BrowserModule, FormsModule,ReactiveFormsModule, RouterModule.forRoot(appRoutes), HttpModule],
     declarations: [
         AppComponent,
         WelcomeComponent,
@@ -31,7 +31,8 @@ import { ProductDB } from "./Products/ProductDB";
         ProductFilterPipe,
         ProductDetailsComponent,
         Error404Component,
-        CreateProductComponent
+        CreateProductComponent,
+        ProductEditComponent
     ],
     providers: [
         ProductService,

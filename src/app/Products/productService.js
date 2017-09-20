@@ -13,9 +13,11 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
+var router_1 = require("@angular/router");
 var ProductService = (function () {
-    function ProductService(http) {
+    function ProductService(http, router) {
         this.http = http;
+        this.router = router;
         this.baseUrl = "http://localhost/MVCPract/";
     }
     ProductService.prototype.getProducts = function () {
@@ -32,11 +34,39 @@ var ProductService = (function () {
             return data;
         }).catch(function (error) { return error.json(); });
     };
+    ProductService.prototype.UpdateProduct = function (data) {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.put((this.baseUrl + "UpdateProduct?id=" + data.id), JSON.stringify(data), { headers: headers }).map(function (response) {
+            var data = response.json();
+            console.log(data);
+            return data;
+        }).catch(function (error) { return error.json(); });
+    };
+    ProductService.prototype.AddProduct = function (data) {
+        var _this = this;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.post((this.baseUrl + "AddProduct"), JSON.stringify(data), { headers: headers }).map(function (response) {
+            _this.router.navigate(["/products"]);
+        }).catch(function (error) { return error.json(); });
+    };
+    ProductService.prototype.DeleteProduct = function (id) {
+        var _this = this;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        // let options = new RequestOptions({ headers: headers });
+        return this.http.delete((this.baseUrl + "DeleteProduct?id=" + id)).map(function (response) {
+            var data = response.json();
+            console.log(data);
+            _this.router.navigate(["/products"]);
+            return data;
+        }).catch(function (error) { return error.json(); });
+    };
     return ProductService;
 }());
 ProductService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], ProductService);
 exports.ProductService = ProductService;
 //# sourceMappingURL=productService.js.map

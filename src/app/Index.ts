@@ -4,6 +4,7 @@ export * from "./Products/create_Product.component";
 export * from "./Products/product_Details_Activator";
 export * from "./Products/product.filter";
 export * from "./Products/product_list.component";
+export * from "./Products/product.edit.component";
 export * from "./shared/Index"
 export * from "./Products/book.component"
 export * from "@angular/core"

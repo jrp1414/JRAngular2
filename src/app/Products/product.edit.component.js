@@ -12,17 +12,17 @@ var core_1 = require("@angular/core");
 var Index_1 = require("../Index");
 var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
-var CreateProductComponent = (function () {
-    function CreateProductComponent(productService, route, fb, router) {
+var ProductEditComponent = (function () {
+    function ProductEditComponent(productService, route, fb, router) {
         this.productService = productService;
         this.route = route;
         this.fb = fb;
         this.router = router;
-        this.isDirty = true;
         // constructor(private productService: ProductService,private route:ActivatedRouteSnapshot) {
     }
-    CreateProductComponent.prototype.ngOnInit = function () {
-        this.addForm = this.fb.group({
+    ProductEditComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.editForm = this.fb.group({
             id: 0,
             Name: "",
             ProductId: "",
@@ -34,27 +34,48 @@ var CreateProductComponent = (function () {
                 Catagory: ""
             })
         });
+        this.productService.getProduct(+this.route.snapshot.params["id"]).subscribe(function (data) {
+            _this.product = data;
+            _this.editForm = _this.fb.group({
+                id: data.id,
+                Name: data.Name,
+                ProductId: data.ProductId,
+                Price: data.Price,
+                Discount: data.Discount,
+                Rating: data.Rating,
+                Details: _this.fb.group({
+                    Description: data.Details.Description,
+                    Catagory: data.Details.Catagory
+                })
+            });
+        }, function (error) { return console.log(error); });
     };
-    CreateProductComponent.prototype.AddProduct = function () {
+    ProductEditComponent.prototype.EditProduct = function () {
         var _this = this;
-        this.productService.AddProduct(this.addForm.value).subscribe(function (data) {
+        this.productService.UpdateProduct(this.editForm.value).subscribe(function (data) {
             console.log(data);
             _this.router.navigate(["/products"]);
         }, function (error) { return console.log(error); });
     };
-    CreateProductComponent.prototype.cancel = function () {
-        this.addForm.reset();
+    ProductEditComponent.prototype.Delete = function () {
+        var _this = this;
+        this.productService.DeleteProduct(this.editForm.get("id").value).subscribe(function (data) {
+            console.log(data);
+            _this.router.navigate(["/products"]);
+        }, function (error) { return console.log(error); });
+    };
+    ProductEditComponent.prototype.cancel = function () {
+        this.editForm.reset();
         this.router.navigate(["/products"]);
     };
-    return CreateProductComponent;
+    return ProductEditComponent;
 }());
-CreateProductComponent = __decorate([
+ProductEditComponent = __decorate([
     core_1.Component({
-        selector: "ap-createProduct",
         moduleId: module.id,
-        templateUrl: "create_Product.component.html"
+        templateUrl: "product.edit.component.html"
     }),
     __metadata("design:paramtypes", [Index_1.ProductService, router_1.ActivatedRoute, forms_1.FormBuilder, router_1.Router])
-], CreateProductComponent);
-exports.CreateProductComponent = CreateProductComponent;
-//# sourceMappingURL=create_Product.component.js.map
+], ProductEditComponent);
+exports.ProductEditComponent = ProductEditComponent;
+//# sourceMappingURL=product.edit.component.js.map
