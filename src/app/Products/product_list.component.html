@@ -10,30 +10,36 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-4" *ngFor="let product of products">
-                <collapsable-well [title]="product.Name">
-                    <div class="row">
-                        <div class="col-md-4">Product Code</div>
-                        <div class="col-md-4">{{product?.ProductCode}}</div>
+            <div class="col-md-6" *ngFor="let product of products">
+                <collapsable-well>
+                    <div collapsable-title>
+                        <h2>{{product.Name}} <i *ngIf="product?.Price > 2000" class="glyphicon glyphicon-fire" style="color:red"></i></h2>                        
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">Price</div>
-                        <div class="col-md-4">
-                            <span>{{product?.Price}}</span>
+                    <div collapsable-body>
+                        <div class="row">
+                            <div class="col-md-4">Product Code</div>
+                            <div class="col-md-4">{{product?.ProductCode}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Price</div>
+                            <div class="col-md-4">
+                                <span>{{product?.Price}}</span>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Discount</div>
+                            <div class="col-md-4">{{product?.Discount}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">Offer</div>
+                            <div [ngSwitch]="product?.Details?.Category" class="col-md-4">
+                                <span *ngSwitchCase="'Furniture'">You have additonal 5% Discount in Axis Bank Card</span>
+                                <span *ngSwitchCase="'Computer'">You have additonal 10% Discount in Axis Bank Card</span>
+                                <span *ngSwitchDefault>You have no additonal Discount in this Category</span>
                             </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">Discount</div>
-                        <div class="col-md-4">{{product?.Discount}}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">Offer</div>
-                        <div [ngSwitch]="product?.Details?.Category" class="col-md-4">
-                            <span *ngSwitchCase="'Furniture'">You have additonal 5% Discount in Axis Bank Card</span>
-                            <span *ngSwitchCase="'Computer'">You have additonal 10% Discount in Axis Bank Card</span>
-                            <span *ngSwitchDefault>You have no additonal Discount in this Category</span>
                         </div>
                     </div>
+                    
                 </collapsable-well>                
             </div>
 

@@ -25,7 +25,7 @@ __decorate([
 CollapsableComponent = __decorate([
     core_1.Component({
         selector: "collapsable-well",
-        template: "\n    <div class='well'>\n    <h2 (click)='toggleContent()'>{{title}}</h2>\n    <ng-content *ngIf='visible'></ng-content>\n    </div>\n    "
+        template: "\n    <div class='well' (click)='toggleContent()' >\n    <ng-content select=[collapsable-title]></ng-content>\n    <ng-content *ngIf='visible' select=[collapsable-body]></ng-content>\n    </div>\n    "
     })
 ], CollapsableComponent);
 exports.CollapsableComponent = CollapsableComponent;

@@ -3,9 +3,9 @@ import { Component, Input } from "@angular/core"
 @Component({
     selector: "collapsable-well",
     template: `
-    <div class='well'>
-    <h2 (click)='toggleContent()'>{{title}}</h2>
-    <ng-content *ngIf='visible'></ng-content>
+    <div class='well' (click)='toggleContent()' >
+    <ng-content select=[collapsable-title]></ng-content>
+    <ng-content *ngIf='visible' select=[collapsable-body]></ng-content>
     </div>
     `
 })
