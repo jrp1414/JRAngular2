@@ -11,5 +11,6 @@ __export(require("./Products/product_list.component"));
 __export(require("./Products/product.edit.component"));
 __export(require("./shared/Index"));
 __export(require("./Products/book.component"));
+__export(require("./Products/highlight.directive"));
 __export(require("@angular/core"));
 //# sourceMappingURL=Index.js.map

@@ -7,4 +7,5 @@ export * from "./Products/product_list.component";
 export * from "./Products/product.edit.component";
 export * from "./shared/Index"
 export * from "./Products/book.component"
+export * from "./Products/highlight.directive";
 export * from "@angular/core"

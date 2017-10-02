@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var productService_1 = require("./productService");
+// import {HighlightDirective} from "./highlight.directive";
 var ProductListComponent = (function () {
     function ProductListComponent(productService) {
         this.productService = productService;

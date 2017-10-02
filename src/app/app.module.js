@@ -34,7 +34,8 @@ AppModule = __decorate([
             Index_1.Error404Component,
             Index_1.CreateProductComponent,
             Index_1.ProductEditComponent,
-            Index_2.CollapsableComponent
+            Index_2.CollapsableComponent,
+            Index_1.HighlightDirective
         ],
         providers: [
             Index_1.ProductService,

@@ -2,6 +2,7 @@
 //import { IProduct, IBook } from "./Product"
 import { IProduct, Product } from "./Product"
 import { ProductService } from "./productService";
+// import {HighlightDirective} from "./highlight.directive";
 @Component({
     selector: "ap-products",
     moduleId:module.id,

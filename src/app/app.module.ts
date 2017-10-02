@@ -12,8 +12,8 @@ import {
     ProductListComponent,
     Error404Component,
     StarComponent,
-    BookComponent, NgModule, ProductEditComponent
-} from "./Index"
+    BookComponent, NgModule, ProductEditComponent,HighlightDirective
+} from "./Index";
 import { BrowserModule } from "@angular/platform-browser"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { appRoutes } from "./Routes";
@@ -35,7 +35,8 @@ import {
         Error404Component,
         CreateProductComponent,
         ProductEditComponent,
-        CollapsableComponent
+        CollapsableComponent,
+        HighlightDirective
     ],
     providers: [
         ProductService,

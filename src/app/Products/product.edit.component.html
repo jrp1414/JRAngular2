@@ -1,7 +1,7 @@
 <div class="row main">
     <div class="main-login main-center">
-
         <form [formGroup]="editForm" (ngSubmit)="EditProduct()">
+            <h2 my-Highlight="chartreuse">{{editForm.get('Name').value}}</h2>
             <!-- <input type="hidden" formControlName="id" /> -->
             <div class="form-group">
                 <div class="cols-sm-6">
